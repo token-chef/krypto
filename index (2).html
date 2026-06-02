@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krypto-Übung: Token, Anzeige und Seed</title>
+  <style>
+    :root {
+      --bg: #eef2f7;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --blue: #2563eb;
+      --blue-dark: #1d4ed8;
+      --line: #e5e7eb;
+      --green: #15803d;
+      --red: #b91c1c;
+      --soft-blue: #eff6ff;
+      --soft-orange: #fff7ed;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    header {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      color: white;
+      padding: 46px 20px;
+    }
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 38px;
+      line-height: 1.15;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 760px;
+      color: #d1d5db;
+      font-size: 18px;
+    }
+
+    nav {
+      background: white;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav .wrap {
+      display: flex;
+      gap: 14px;
+      padding: 14px 20px;
+      flex-wrap: wrap;
+    }
+
+    a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .nav-link {
+      padding: 10px 15px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--soft-blue);
+      color: var(--blue-dark);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    .nav-link.active {
+      background: var(--blue);
+      color: white;
+    }
+
+    main {
+      padding: 34px 20px 60px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 26px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: 26px;
+    }
+
+    h3 {
+      margin: 26px 0 10px;
+      font-size: 20px;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: #f3f4f6;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    .button.secondary {
+      background: #374151;
+    }
+
+    .notice {
+      margin: 20px 0;
+      padding: 16px 18px;
+      background: var(--soft-orange);
+      border-left: 5px solid #f97316;
+      border-radius: 10px;
+    }
+
+    .report {
+      margin-top: 18px;
+      padding: 22px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+    }
+
+    .report-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .quiz {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+    }
+
+    .question {
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px 14px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      border-color: var(--blue);
+    }
+
+    .quiz-button {
+      margin-top: 12px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    .quiz-button:hover,
+    .button:hover {
+      background: var(--blue-dark);
+      text-decoration: none;
+    }
+
+    .feedback {
+      margin-top: 14px;
+      font-weight: 700;
+    }
+
+    .ok {
+      color: var(--green);
+    }
+
+    .bad {
+      color: var(--red);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    footer {
+      padding: 24px 20px;
+      background: #111827;
+      color: #d1d5db;
+      font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .card {
+        padding: 22px;
+      }
+
+      nav .wrap {
+        gap: 8px;
+      }
+
+      .nav-link {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Krypto-Übung: Token, Anzeige und Seed</h1>
+      <p>
+        Diese Seite enthält zwei fiktive Übungsaufgaben zu Kryptowährungen. Wähle oben eine Aufgabe aus,
+        um nur den jeweiligen Inhalt anzuzeigen.
+      </p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="wrap">
+      <button class="nav-link active" type="button" data-target="uebersicht">Übersicht</button>
+      <button class="nav-link" type="button" data-target="aufgabe-1">Aufgabe 1</button>
+      <button class="nav-link" type="button" data-target="aufgabe-2">Aufgabe 2</button>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section id="uebersicht" class="card page-section active">
+      <span class="pill">Übersicht</span>
+      <h2>Aufgaben</h2>
+      <p>
+        Die erste Aufgabe behandelt einen fiktiven Hilferuf zu KAPO-Token und eine anschliessende Anzeige wegen Betrugs.
+        Die zweite Aufgabe behandelt einen unvollständig abgelegten Seed eines Praktikanten.
+      </p>
+
+      <div class="button-row">
+        <button class="button" type="button" data-target="aufgabe-1">Zu Aufgabe 1</button>
+        <button class="button secondary" type="button" data-target="aufgabe-2">Zu Aufgabe 2</button>
+      </div>
+    </section>
+
+    <section id="aufgabe-1" class="card page-section">
+      <span class="pill">Aufgabe 1</span>
+      <h2>Blogartikel: KAPO-Token lassen sich nicht verschieben</h2>
+      <p>
+        In Aufgabe 1 geht es um einen fiktiven Blog- beziehungsweise Forenbeitrag. Eine Person beschreibt,
+        dass sie KAPO-Token gekauft hat, diese jedoch nicht verschieben kann. Der Beitrag ist im Stil eines
+        Reddit-Threads aufgebaut.
+      </p>
+
+      <p>
+        Der Blogartikel befindet sich als separate Datei im Repository:
+        <a href="kapo_reddit_style_blog.html">Blogartikel öffnen</a>
+      </p>
+
+      <h3>Eingebetteter Anzeigetext</h3>
+      <div class="report">
+        <div class="report-title">Strafanzeige wegen Betrugs</div>
+
+        <p>Hiermit erstatte ich Strafanzeige gegen unbekannt wegen des Verdachts des Betrugs.</p>
+
+        <p>
+          Im Zusammenhang mit einer Investition in den sogenannten KAPO-Token habe ich eine erhebliche Menge
+          dieser Token erworben. Der Erwerb erfolgte aufgrund von Informationen und Aussagen, welche den Eindruck
+          vermittelten, dass die Token frei handelbar und jederzeit übertragbar seien.
+        </p>
+
+        <p>
+          Die erworbenen Token befinden sich auf der Wallet-Adresse:
+          <br>
+          <strong>0x1Dc467FC2a599c99f15DFB39a38762fdE7d504eF</strong>
+        </p>
+
+        <p>
+          Nach dem Erwerb stellte ich fest, dass ich die Token nicht übertragen, verkaufen oder anderweitig verwenden
+          kann. Sämtliche Versuche, über die Token zu verfügen, blieben erfolglos.
+        </p>
+
+        <p>
+          Da ich zunächst von einem technischen Problem ausging, suchte ich im Internet nach Lösungen und
+          veröffentlichte einen Hilfebeitrag in einem öffentlichen Kryptowährungsforum. Trotz verschiedener Hinweise
+          und Rückmeldungen anderer Nutzer konnte das Problem nicht behoben werden.
+        </p>
+
+        <p>
+          Aus meiner Sicht besteht der Verdacht, dass die Token unter Vorspiegelung falscher Tatsachen oder unter
+          irreführenden Angaben verkauft wurden und tatsächlich nicht wie beworben genutzt oder übertragen werden
+          können. Dadurch entstand mir ein finanzieller Schaden.
+        </p>
+
+        <p>
+          Ich bitte die Polizei, den Sachverhalt zu prüfen und die Verantwortlichen zu ermitteln.
+        </p>
+      </div>
+    </section>
+
+    <section id="aufgabe-2" class="card page-section">
+      <span class="pill">Aufgabe 2</span>
+      <h2>Der Praktikant und der unvollständige Seed</h2>
+      <p>
+        In Aufgabe 2 geht es um einen Praktikanten, der ein kleines Kryptoprojekt vorbereitet hatte. Er wollte für
+        das Projekt ein Konto beziehungsweise eine Wallet dokumentieren, hat den Seed jedoch nicht sauber abgelegt.
+        Statt einer vollständigen und überprüfbaren Sicherung existiert nur ein Foto mit einer unvollständigen Notiz.
+      </p>
+
+      <p>
+        Das Foto liegt im GitHub-Repository und kann hier geöffnet werden:
+        <a href="seed-foto.png">Foto des Schreibtischs öffnen</a>
+      </p>
+
+      <div class="notice">
+        Die Aufgabe besteht nicht darin, eine echte Wallet wiederherzustellen. Es soll erkannt werden, weshalb eine
+        unvollständige Seed-Notiz nicht genügt, um ein Konto zuverlässig zu rekonstruieren.
+      </div>
+
+      <div class="quiz">
+        <div class="question">Quizfrage 1: Könnt ihr aus dem Seed das Konto erstellen?</div>
+
+        <label class="option">
+          <input type="radio" name="q1" value="ja">
+          Ja
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q1" value="nein">
+          Nein
+        </label>
+
+        <button class="quiz-button" type="button" onclick="checkQ1()">Antwort prüfen</button>
+        <div id="feedback1" class="feedback"></div>
+
+        <div id="q2box" class="hidden">
+          <hr>
+          <div class="question">Quizfrage 2: Weshalb nicht?</div>
+
+          <label class="option">
+            <input type="radio" name="q2" value="falsch-chain">
+            Weil die falsche Blockchain ausgewählt wurde.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="seed-unvollstaendig">
+            Weil der Seed nicht komplett ist.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="kein-internet">
+            Weil eine Wallet nur mit Internetzugang erstellt werden kann.
+          </label>
+
+          <label class="option">
+            <input type="radio" name="q2" value="token-gesperrt">
+            Weil der Token gesperrt ist.
+          </label>
+
+          <button class="quiz-button" type="button" onclick="checkQ2()">Antwort prüfen</button>
+          <div id="feedback2" class="feedback"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      Fiktive Übungsseite. Keine Finanzberatung und keine Anleitung zur Wiederherstellung echter Wallets.
+    </div>
+  </footer>
+
+  <script>
+    function showSection(targetId) {
+      const sections = document.querySelectorAll('.page-section');
+      const navButtons = document.querySelectorAll('.nav-link');
+
+      sections.forEach(section => {
+        section.classList.toggle('active', section.id === targetId);
+      });
+
+      navButtons.forEach(button => {
+        button.classList.toggle('active', button.dataset.target === targetId);
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('[data-target]').forEach(element => {
+      element.addEventListener('click', () => {
+        showSection(element.dataset.target);
+      });
+    });
+
+    function selectedValue(name) {
+      const checked = document.querySelector('input[name="' + name + '"]:checked');
+      return checked ? checked.value : null;
+    }
+
+    function checkQ1() {
+      const value = selectedValue('q1');
+      const feedback = document.getElementById('feedback1');
+      const q2box = document.getElementById('q2box');
+
+      if (!value) {
+        feedback.textContent = 'Bitte eine Antwort auswählen.';
+        feedback.className = 'feedback bad';
+        q2box.classList.add('hidden');
+        return;
+      }
+
+      if (value === 'nein') {
+        feedback.textContent = 'Richtig. Mit der vorhandenen Notiz kann das Konto nicht zuverlässig erstellt werden.';
+        feedback.className = 'feedback ok';
+        q2box.classList.remove('hidden');
+      } else {
+        feedback.textContent = 'Leider falsch. Prüft nochmals, ob die Seed-Notiz vollständig ist.';
+        feedback.className = 'feedback bad';
+        q2box.classList.add('hidden');
+      }
+    }
+
+    function checkQ2() {
+      const value = selectedValue('q2');
+      const feedback = document.getElementById('feedback2');
+
+      if (!value) {
+        feedback.textContent = 'Bitte eine Antwort auswählen.';
+        feedback.className = 'feedback bad';
+        return;
+      }
+
+      if (value === 'seed-unvollstaendig') {
+        feedback.textContent = 'Richtig. Der Seed ist nicht komplett und reicht deshalb nicht zur zuverlässigen Wiederherstellung.';
+        feedback.className = 'feedback ok';
+      } else {
+        feedback.textContent = 'Leider falsch. Der entscheidende Punkt ist, dass der Seed nicht komplett ist.';
+        feedback.className = 'feedback bad';
+      }
+    }
+  </script>
+</body>
+</html>
