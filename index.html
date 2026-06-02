@@ -119,6 +119,24 @@
       display: block;
     }
 
+    .repo-box,
+    .address-box {
+      margin: 18px 0 22px;
+      padding: 16px 18px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .address-box {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 15px;
+      background: #0f172a;
+      color: #e5e7eb;
+      border-color: #1f2937;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -259,8 +277,90 @@
       color: var(--red);
     }
 
+    .notice, .hint {
+      margin: 22px 0;
+      padding: 16px 18px;
+      background: var(--soft-orange);
+      border-left: 5px solid #f97316;
+      border-radius: 10px;
+    }
+
+    .hint {
+      background: var(--soft-blue);
+      border-left-color: var(--blue);
+    }
+
+    .quiz-step {
+      margin-top: 22px;
+      padding: 22px;
+      border-radius: 14px;
+      background: #f9fafb;
+      border: 1px solid var(--line);
+    }
+
+    .question {
+      font-weight: 700;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .option {
+      display: block;
+      margin: 10px 0;
+      padding: 12px 14px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .option:hover {
+      border-color: var(--blue);
+    }
+
+    button {
+      margin-top: 12px;
+      margin-right: 8px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+    }
+
+    button:hover {
+      background: var(--blue-dark);
+    }
+
+    button.secondary {
+      background: #374151;
+    }
+
+    .feedback {
+      margin-top: 14px;
+      font-weight: 700;
+    }
+
+    .ok {
+      color: var(--green);
+    }
+
+    .bad {
+      color: var(--red);
+    }
+
     .hidden {
       display: none;
+    }
+
+    footer {
+      padding: 24px 20px;
+      background: #111827;
+      color: #d1d5db;
+      font-size: 14px;
     }
 
     footer {
@@ -333,7 +433,6 @@
           Ihr agiert als Spezialisten welche die Token sicherstellen sollt. 
       </p>
 
-      <h3>Eingebetteter Anzeigetext</h3>
       <div class="report">
         <div class="report-title">Strafanzeige wegen Betrugs</div>
 
@@ -400,8 +499,8 @@
 
       <div class="repo-box">
         GitHub-Repository:<br>
-        <a href="https://github.dev/token-chef/PraktikantenProjekt" target="_blank" rel="noopener">
-          https://github.dev/token-chef/PraktikantenProjekt
+        <a href="https://github.com/token-chef/PraktikantenProjekt" target="_blank" rel="noopener">
+          https://github.com/token-chef/PraktikantenProjekt
         </a>
       </div>
 
