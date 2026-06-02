@@ -382,25 +382,55 @@
 
     <section id="aufgabe-2" class="card page-section">
       <span class="pill">Aufgabe 2</span>
-      <h2>Der Praktikant und der unvollständige Seed</h2>
+      <h2>Der Praktikant und die Projekt-Wallet</h2>
+
       <p>
-        In Aufgabe 2 geht es um einen Praktikanten, der ein kleines Kryptoprojekt vorbereitet hatte. Er wollte für
-        das Projekt ein Konto beziehungsweise eine Wallet dokumentieren, hat den Seed jedoch nicht sauber abgelegt.
-        Statt einer vollständigen und überprüfbaren Sicherung existiert nur ein Foto mit einer unvollständigen Notiz.
+        Ein Praktikant hat im Rahmen eines internen Kryptowährungsprojekts ein GitHub-Repository erstellt.
+        Das Repository enthält verschiedene Solidity-Dateien, Notizen, Konfigurationsfragmente und weitere Unterlagen,
+        die während der Entwicklung entstanden sind.
       </p>
 
       <p>
-        Das Foto liegt im GitHub-Repository und kann hier geöffnet werden:
-        <a href="seed-foto.png">Foto des Schreibtischs öffnen</a>
+        Nach Abschluss des Praktikums stellte der Auftraggeber fest, dass die Projekt-Wallet nicht korrekt dokumentiert
+        wurde. Der Praktikant hatte zwar Hinweise und Unterlagen abgelegt, jedoch offenbar nicht sauber und nicht
+        vollständig. Dadurch ist unklar, ob der Zugriff auf die Wallet wiederhergestellt werden kann.
+      </p>
+
+      <div class="repo-box">
+        GitHub-Repository:<br>
+        <a href="https://github.com/USERNAME/REPOSITORY" target="_blank" rel="noopener">
+          https://github.com/USERNAME/REPOSITORY
+        </a>
+      </div>
+
+      <p>
+        Auf der zugehörigen Projektadresse befinden sich gemäss Auftraggeber noch wertvolle Tokenbestände.
+        Diese sollen nach Möglichkeit wieder in den Besitz des Auftraggebers gebracht werden.
+      </p>
+
+      <div class="address-box">
+        0x677B360d861488d92b0FF0849c88231abF15A0fB
+      </div>
+
+      <p>
+        Die vorhandenen Informationen sollen geprüft werden. Dabei ist insbesondere zu beurteilen,
+        ob die Angaben aus dem Repository und das vorhandene Bildmaterial ausreichen, um das Konto zuverlässig
+        wiederherzustellen, oder ob entscheidende Informationen fehlen.
       </p>
 
       <div class="notice">
-        Die Aufgabe besteht nicht darin, eine echte Wallet wiederherzustellen. Es soll erkannt werden, weshalb eine
-        unvollständige Seed-Notiz nicht genügt, um ein Konto zuverlässig zu rekonstruieren.
+        Hinweis: Diese Übung dient der Analyse von unvollständig abgelegten Wallet-Informationen.
+        Es geht nicht um echte Wiederherstellung fremder Wallets, sondern um die Beurteilung, ob die vorhandenen
+        Informationen technisch ausreichen würden.
       </div>
+    </section>
 
-      <div class="quiz">
-        <div class="question">Quizfrage 1: Könnt ihr aus dem Seed das Konto erstellen?</div>
+    <section class="card">
+      <span class="pill">Quiz</span>
+      <h2>Überprüfung</h2>
+
+      <div id="step1" class="quiz-step">
+        <div class="question">Könnt ihr aus dem Seed das Konto erstellen?</div>
 
         <label class="option">
           <input type="radio" name="q1" value="ja">
@@ -412,36 +442,113 @@
           Nein
         </label>
 
-        <button class="quiz-button" type="button" onclick="checkQ1()">Antwort prüfen</button>
+        <button type="button" onclick="checkQ1()">Antwort prüfen</button>
         <div id="feedback1" class="feedback"></div>
+      </div>
 
-        <div id="q2box" class="hidden">
-          <hr>
-          <div class="question">Quizfrage 2: Weshalb nicht?</div>
+      <div id="step2" class="quiz-step hidden">
+        <div class="question">Weshalb nicht?</div>
 
-          <label class="option">
-            <input type="radio" name="q2" value="falsch-chain">
-            Weil die falsche Blockchain ausgewählt wurde.
-          </label>
+        <label class="option">
+          <input type="radio" name="q2" value="falsche-chain">
+          Weil die falsche Blockchain ausgewählt wurde.
+        </label>
 
-          <label class="option">
-            <input type="radio" name="q2" value="seed-unvollstaendig">
-            Weil der Seed nicht komplett ist.
-          </label>
+        <label class="option">
+          <input type="radio" name="q2" value="seed-nicht-vollstaendig">
+          Weil der Seed nicht vollständig ist.
+        </label>
 
-          <label class="option">
-            <input type="radio" name="q2" value="kein-internet">
-            Weil eine Wallet nur mit Internetzugang erstellt werden kann.
-          </label>
+        <label class="option">
+          <input type="radio" name="q2" value="kein-guthaben">
+          Weil auf der Adresse keine Token liegen.
+        </label>
 
-          <label class="option">
-            <input type="radio" name="q2" value="token-gesperrt">
-            Weil der Token gesperrt ist.
-          </label>
+        <label class="option">
+          <input type="radio" name="q2" value="wallet-defekt">
+          Weil die Wallet-Anwendung defekt ist.
+        </label>
 
-          <button class="quiz-button" type="button" onclick="checkQ2()">Antwort prüfen</button>
-          <div id="feedback2" class="feedback"></div>
+        <button type="button" onclick="checkQ2()">Antwort prüfen</button>
+        <div id="feedback2" class="feedback"></div>
+      </div>
+
+      <div id="step3" class="quiz-step hidden">
+        <div class="question">Prüft im Repo, ob weitere Hinweise vorhanden sind.</div>
+        <p>
+          Entscheidet selbst, ob ihr weiterarbeiten wollt oder zuerst eine kleine Hilfestellung benötigt.
+        </p>
+
+        <button type="button" onclick="showStep('step4')">Nächste Frage</button>
+        <button type="button" class="secondary" onclick="showHint()">Hilfestellung</button>
+
+        <div id="repoHint" class="hint hidden">
+          Schaut euch die unterschiedlichen Dateien an. Welche Dateien gibt es, was steht in den Kommentaren
+          und welche Hinweise tauchen mehrfach oder an unerwarteten Stellen auf?
         </div>
+      </div>
+
+      <div id="step4" class="quiz-step hidden">
+        <div class="question">
+          Jetzt habt ihr den Private Key. Könnt ihr die KAPO-Token nun zu euch überweisen und sicherstellen?
+        </div>
+
+        <label class="option">
+          <input type="radio" name="q4" value="ja">
+          Ja
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q4" value="nein">
+          Nein
+        </label>
+
+        <button type="button" onclick="checkQ4()">Antwort prüfen</button>
+        <div id="feedback4" class="feedback"></div>
+      </div>
+
+      <div id="step5" class="quiz-step hidden">
+        <div class="question">
+          Weshalb geht es nicht?
+        </div>
+        <p>
+          Klicke weiter, wenn du die Antwort kennst oder einen Tipp benötigst.
+        </p>
+
+        <button type="button" onclick="showStep('step6')">Weiter zur Antwortauswahl</button>
+        <button type="button" class="secondary" onclick="showTransferHint()">Tipp anzeigen</button>
+
+        <div id="transferHint" class="hint hidden">
+          Prüft nicht nur, ob der Schlüssel vorhanden ist, sondern auch, ob der Token-Contract Transfers
+          von dieser Adresse überhaupt zulässt.
+        </div>
+      </div>
+
+      <div id="step6" class="quiz-step hidden">
+        <div class="question">Warum können die KAPO-Token nicht übertragen werden?</div>
+
+        <label class="option">
+          <input type="radio" name="q6" value="zu-wenig-gas">
+          Auf der Adresse fehlt nur Gas für die Transaktionsgebühr.
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="blacklist">
+          Die Token lassen sich nicht wegtransferieren, da die Adresse auf der Blacklist steht.
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="wallet-app">
+          Die verwendete Wallet-App zeigt den Token falsch an.
+        </label>
+
+        <label class="option">
+          <input type="radio" name="q6" value="falsches-passwort">
+          Das Wallet-Passwort ist falsch.
+        </label>
+
+        <button type="button" onclick="checkQ6()">Antwort prüfen</button>
+        <div id="feedback6" class="feedback"></div>
       </div>
     </section>
   </main>
@@ -479,26 +586,36 @@
       return checked ? checked.value : null;
     }
 
+    function showStep(id) {
+      document.getElementById(id).classList.remove('hidden');
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function showHint() {
+      document.getElementById('repoHint').classList.remove('hidden');
+    }
+
+    function showTransferHint() {
+      document.getElementById('transferHint').classList.remove('hidden');
+    }
+
     function checkQ1() {
       const value = selectedValue('q1');
       const feedback = document.getElementById('feedback1');
-      const q2box = document.getElementById('q2box');
 
       if (!value) {
         feedback.textContent = 'Bitte eine Antwort auswählen.';
         feedback.className = 'feedback bad';
-        q2box.classList.add('hidden');
         return;
       }
 
       if (value === 'nein') {
-        feedback.textContent = 'Richtig. Mit der vorhandenen Notiz kann das Konto nicht zuverlässig erstellt werden.';
+        feedback.textContent = 'Richtig. Aus dem unvollständigen Seed kann das Konto nicht zuverlässig erstellt werden.';
         feedback.className = 'feedback ok';
-        q2box.classList.remove('hidden');
+        showStep('step2');
       } else {
-        feedback.textContent = 'Leider falsch. Prüft nochmals, ob die Seed-Notiz vollständig ist.';
+        feedback.textContent = 'Leider falsch. Prüft nochmals, ob alle notwendigen Seed-Wörter vorhanden sind.';
         feedback.className = 'feedback bad';
-        q2box.classList.add('hidden');
       }
     }
 
@@ -512,11 +629,51 @@
         return;
       }
 
-      if (value === 'seed-unvollstaendig') {
-        feedback.textContent = 'Richtig. Der Seed ist nicht komplett und reicht deshalb nicht zur zuverlässigen Wiederherstellung.';
+      if (value === 'seed-nicht-vollstaendig') {
+        feedback.textContent = 'Richtig. Der Seed ist nicht vollständig und reicht deshalb nicht zur zuverlässigen Wiederherstellung.';
+        feedback.className = 'feedback ok';
+        showStep('step3');
+      } else {
+        feedback.textContent = 'Leider falsch. Der entscheidende Punkt ist, dass der Seed nicht vollständig ist.';
+        feedback.className = 'feedback bad';
+      }
+    }
+
+    function checkQ4() {
+      const value = selectedValue('q4');
+      const feedback = document.getElementById('feedback4');
+
+      if (!value) {
+        feedback.textContent = 'Bitte eine Antwort auswählen.';
+        feedback.className = 'feedback bad';
+        return;
+      }
+
+      if (value === 'nein') {
+        feedback.textContent = 'Richtig. Der Private Key allein genügt in diesem Fall nicht, um die KAPO-Token zu transferieren.';
+        feedback.className = 'feedback ok';
+        showStep('step5');
+      } else {
+        feedback.textContent = 'Falls ja, zeig mir deine Lösung. Prüfe dabei, ob der Token-Contract den Transfer tatsächlich erlaubt.';
+        feedback.className = 'feedback bad';
+      }
+    }
+
+    function checkQ6() {
+      const value = selectedValue('q6');
+      const feedback = document.getElementById('feedback6');
+
+      if (!value) {
+        feedback.textContent = 'Bitte eine Antwort auswählen.';
+        feedback.className = 'feedback bad';
+        return;
+      }
+
+      if (value === 'blacklist') {
+        feedback.textContent = 'Richtig. Die Adresse steht auf der Blacklist, deshalb lassen sich die Token nicht wegtransferieren.';
         feedback.className = 'feedback ok';
       } else {
-        feedback.textContent = 'Leider falsch. Der entscheidende Punkt ist, dass der Seed nicht komplett ist.';
+        feedback.textContent = 'Leider falsch. Entscheidend ist die Blacklist-Funktion des Token-Contracts.';
         feedback.className = 'feedback bad';
       }
     }
